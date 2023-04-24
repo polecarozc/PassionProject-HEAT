@@ -12,6 +12,8 @@ def set_shuffler():
         print('There are 3 kinds of shuffling:\n-------- \nManual.\nAutomatic.\nContinuous.\n--------')
         set_shuffler()
 
+def shoe_size():
+    return int(input('Please enter shoe size: '))
 
 def set_decks():
     return int(input('Please set the amount of decks you will be playing with: '))
@@ -22,5 +24,6 @@ def set_simulations():
 def run_simulation():
     shuffler = set_shuffler()
     decks = set_decks()
+    shoe = shoe_size()
     simulations = set_simulations()
 
