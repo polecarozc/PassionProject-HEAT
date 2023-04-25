@@ -11,6 +11,8 @@ class player:
         self.score_count()
         if self.score > 21:
             return 1
+        elif self.score ==21:
+            return 2
         return 0
 
     def score_count(self):
