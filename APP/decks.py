@@ -11,8 +11,6 @@ class deck:
 
 
     def draw_card(self, rep):
-        print('--------')
-        print('number of cards ' + str(len(self.cards)))
         hand = []
         for i in range(rep):
             card = random.choice(self.cards)

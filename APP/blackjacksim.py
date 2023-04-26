@@ -28,9 +28,13 @@ class game:
             print('YOU GOT BLACKJACK')
             if dealer_state == 1:
                 print('DEALER GOT BLACKJACK... ITS A PUSH!')
+                self.player.cards.clear()
+                return
         elif dealer_state == 1:
             print('dealer got blackjack')
             self.dealer.show_cards()
+            self.player.cards.clear()
+            return
         else:
             choice = ''
             while choice != 'stand' and player_state != 1:
@@ -42,19 +46,23 @@ class game:
                     self.player.show_cards()
                 if is_bust == 1:
                     print('player busted, gg')
+                    self.player.cards.clear()
                     return
                 if is_bust == 2:
                     print('you have 21!')
+                    self.player.cards.clear()
                     return
             self.dealer.show_cards()
             if dealer_state == 1:
                 print('dealer got blackjack, gg')
+                self.player.cards.clear()
                 return 1
 
             while self.dealer.score_count() < 17:
                 if self.dealer.hit() == 1:
                     self.dealer.show_cards()
                     print('dealer busted, gg')
+                    self.player.cards.clear()
                     return 1
                 self.dealer.show_cards()
             if self.dealer.score_count() == self.player.score_count():
@@ -63,6 +71,7 @@ class game:
                 print('dealer wins, gg')
             elif self.dealer.score_count() < self.player.score_count():
                 print('u win, gg')
+            self.player.cards.clear()
 
 
 

@@ -38,6 +38,9 @@ class player:
     def dealer_gate(self):
         return 1
 
+    def clear_deck(self):
+        self.cards.clear()
+
     def show_cards(self):
         if self.dealer:
             print('Dealers cards')
