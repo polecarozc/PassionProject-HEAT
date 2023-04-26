@@ -65,12 +65,12 @@ class game:
                     self.player.cards.clear()
                     return 1
                 self.dealer.show_cards()
-            if self.dealer.score_count() == self.player.score_count():
-                print('push!!!!!\n--------')
-            elif self.dealer.score_count() > self.player.score_count():
-                print('dealer wins, gg\n--------')
-            elif self.dealer.score_count() < self.player.score_count():
-                print('u win, gg\n--------')
+                if self.dealer.score_count() == self.player.score_count():
+                    print('push!!!!!\n--------')
+                elif self.dealer.score_count() > self.player.score_count():
+                    print('dealer wins, gg\n--------')
+                elif self.dealer.score_count() < self.player.score_count():
+                    print('u win, gg\n--------')
             self.player.cards.clear()
 
 
