@@ -16,7 +16,7 @@ class deck:
             card = random.choice(self.cards)
             self.cards.remove(card)
             hand.append(card)
-        print('number of cards ' + str(len(self.cards)))
+        #print('number of cards ' + str(len(self.cards)))
         return hand
     
     def deck_count(self):

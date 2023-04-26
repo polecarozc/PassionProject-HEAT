@@ -48,7 +48,7 @@ class player:
             print('Players cards')
         for i in self.cards:
             i.show()
-        print('score: ' + str(self.score))
+        print('hand value: ' + str(self.score))
 
     def dealers_cards(self):
         print('Dealers cards')

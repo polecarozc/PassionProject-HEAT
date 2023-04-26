@@ -27,11 +27,11 @@ class game:
         if player_state == 1:
             print('YOU GOT BLACKJACK')
             if dealer_state == 1:
-                print('DEALER GOT BLACKJACK... ITS A PUSH!')
+                print('DEALER GOT BLACKJACK... ITS A PUSH!\n--------')
                 self.player.cards.clear()
                 return
         elif dealer_state == 1:
-            print('dealer got blackjack')
+            print('dealer got blackjack\n--------')
             self.dealer.show_cards()
             self.player.cards.clear()
             return
@@ -45,32 +45,32 @@ class game:
                     is_bust = self.player.hit()
                     self.player.show_cards()
                 if is_bust == 1:
-                    print('player busted, gg')
+                    print('player busted, gg\n--------')
                     self.player.cards.clear()
                     return
                 if is_bust == 2:
-                    print('you have 21!')
+                    print('you have 21!\n--------')
                     self.player.cards.clear()
                     return
             self.dealer.show_cards()
             if dealer_state == 1:
-                print('dealer got blackjack, gg')
+                print('dealer got blackjack, gg\n--------')
                 self.player.cards.clear()
                 return 1
 
             while self.dealer.score_count() < 17:
                 if self.dealer.hit() == 1:
                     self.dealer.show_cards()
-                    print('dealer busted, gg')
+                    print('dealer busted, gg\n--------')
                     self.player.cards.clear()
                     return 1
                 self.dealer.show_cards()
             if self.dealer.score_count() == self.player.score_count():
-                print('push!!!!!')
+                print('push!!!!!\n--------')
             elif self.dealer.score_count() > self.player.score_count():
-                print('dealer wins, gg')
+                print('dealer wins, gg\n--------')
             elif self.dealer.score_count() < self.player.score_count():
-                print('u win, gg')
+                print('u win, gg\n--------')
             self.player.cards.clear()
 
 
