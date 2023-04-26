@@ -65,12 +65,5 @@ class game:
                 print('u win, gg')
 
 
-logic = logic()
-bankroll = logic.bankroll()
-minbet = logic.minbet()
-blackjack = game(bankroll,logic.shoe_size(), minbet, logic.maxbet(), logic.set_shuffler())
-if bankroll > minbet:
-    blackjack.play()
-else:
-    print('you went broke!!!!')
+
 

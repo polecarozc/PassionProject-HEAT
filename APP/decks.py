@@ -11,12 +11,15 @@ class deck:
 
 
     def draw_card(self, rep):
-        cards = []
+        print('--------')
+        print('number of cards ' + str(len(self.cards)))
+        hand = []
         for i in range(rep):
             card = random.choice(self.cards)
             self.cards.remove(card)
-            cards.append(card)
-        return cards
+            hand.append(card)
+        print('number of cards ' + str(len(self.cards)))
+        return hand
     
     def deck_count(self):
         return len(self.cards)
