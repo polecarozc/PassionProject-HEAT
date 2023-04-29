@@ -26,10 +26,12 @@ class game:
 
         if player_state == 1:
             print('YOU GOT BLACKJACK')
+            self.player.cards.clear()
             if dealer_state == 1:
                 print('DEALER GOT BLACKJACK... ITS A PUSH!\n--------')
                 self.player.cards.clear()
                 return
+            return
         elif dealer_state == 1:
             print('dealer got blackjack\n--------')
             self.dealer.show_cards()
