@@ -12,6 +12,9 @@ class deck:
 
     def draw_card(self, rep):
         hand = []
+        if len(self.cards) == 0:
+            print('OUT OF CARDS! Reshuffling deck\n--------')
+            self.create_deck()
         for i in range(rep):
             card = random.choice(self.cards)
             self.cards.remove(card)
