@@ -16,8 +16,10 @@ class game:
 
 
     def play(self):
-
-
+        if self.bankroll < self.minbet:
+            return 10
+        print(f'YOUR BANKROLL IS : ${self.bankroll}')
+        setbet = int(input(f'SET A BET BETWEEN {self.minbet}----{self.maxbet}: '))
 
         dealer_state = self.dealer.deal_cards()
         player_state = self.player.deal_cards()
@@ -34,14 +36,16 @@ class game:
                 print('DEALER GOT BLACKJACK... ITS A PUSH!\n--------')
                 self.player.cards.clear()
                 self.dealer.cards.clear()
-                return
-            return
+                return self.bankroll
+            self.bankroll += (setbet * 3/2)
+            return self.bankroll
         elif dealer_state == 1:
             self.dealer.show_cards()
             print('dealer got blackjack\n--------')
             self.player.cards.clear()
             self.dealer.cards.clear()
-            return
+            self.bankroll -= setbet
+            return self.bankroll
         else:
             choice = ''
             while choice != 'stand' and player_state != 1:
@@ -55,7 +59,8 @@ class game:
                     print('player busted, gg\n--------')
                     self.player.cards.clear()
                     self.dealer.cards.clear()
-                    return
+                    self.bankroll -= setbet
+                    return self.bankroll
                 if is_bust == 2:
                     print('you have 21!,\n--------')
             self.dealer.show_cards()
@@ -63,34 +68,41 @@ class game:
                 print('dealer got blackjack, gg\n--------')
                 self.player.cards.clear()
                 self.dealer.cards.clear()
-                return 1
+                self.bankroll -= setbet
+                return self.bankroll
 
             if self.player.score_count() > self.dealer.score_count() and self.dealer.score_count() >= 17:
                 print('player wins, gg\n--------')
                 self.player.cards.clear()
                 self.dealer.cards.clear()
-                return 1
+                self.bankroll += setbet
+                return self.bankroll
             elif self.player.score_count() < self.dealer.score_count() and self.dealer.score_count() >= 17:
                 print('dealer wins, gg\n--------')
                 self.player.cards.clear()
                 self.dealer.cards.clear()
-                return 1
+                self.bankroll -= setbet
+                return self.bankroll
             while self.dealer.score_count() < 17:
                 if self.dealer.hit() == 1:
                     self.dealer.show_cards()
                     print('dealer busted, gg\n--------')
                     self.player.cards.clear()
                     self.dealer.cards.clear()
-                    return 1
+                    self.bankroll += setbet
+                    return self.bankroll
                 self.dealer.show_cards()
             if self.dealer.score_count() == self.player.score_count() and self.dealer.score_count() >= 17:
                 print('push!!!!!\n--------')
             elif self.dealer.score_count() > self.player.score_count() and self.dealer.score_count() >= 17:
                 print('dealer wins, gg\n--------')
+                self.bankroll -= setbet
             elif self.dealer.score_count() < self.player.score_count() and self.dealer.score_count() >= 17:
                 print('u win, gg\n--------')
+                self.bankroll += setbet
             self.player.cards.clear()
             self.dealer.cards.clear()
+            return self.bankroll
 
 
 

@@ -7,7 +7,6 @@ if __name__=='__main__':
     bankroll = logic.bankroll()
     minbet = logic.minbet()
     blackjack = game(bankroll, logic.shoe_size(), minbet, logic.maxbet(), logic.set_shuffler())
-    while bankroll >= minbet:
-        blackjack.play()
+    while blackjack.play() != 10:
         print('--------COMPLETED__RUN--------')
     print('you went broke!!!!')
