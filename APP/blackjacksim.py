@@ -18,8 +18,9 @@ class game:
     def play(self):
 
 
-        player_state = self.player.deal_cards()
+
         dealer_state = self.dealer.deal_cards()
+        player_state = self.player.deal_cards()
 
         self.dealer.dealers_cards()
         self.player.show_cards()

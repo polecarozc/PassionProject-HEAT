@@ -3,6 +3,7 @@ from cards import card; import random
 class deck:
     def __init__(self):
         self.cards = []
+        self.count = 0
 
     def create_deck(self):
         for i in range(1,14):
@@ -19,8 +20,18 @@ class deck:
             card = random.choice(self.cards)
             self.cards.remove(card)
             hand.append(card)
+            self.update_count(card)
         #print('number of cards ' + str(len(self.cards)))
+        #print('the count is now ' + str(self.count))
         return hand
+
+    def update_count(self, card):
+        if card.amount in [2,3,4,5,6]:
+            self.count += 1
+        elif card.amount in [1, 10, 11, 12, 13]:
+            self.count += -1
+        print('COUNT IS ' + str(self.count))
     
     def deck_count(self):
         return len(self.cards)
+

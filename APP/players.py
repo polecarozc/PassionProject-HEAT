@@ -27,7 +27,8 @@ class player:
             aces -= 1
             self.score -= 10
         return self.score
-    
+
+
     def deal_cards(self):
         self.cards.extend(self.decks.draw_card(2))
         self.score_count()
