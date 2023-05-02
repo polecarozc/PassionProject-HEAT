@@ -19,7 +19,7 @@ class game:
         if self.bankroll < self.minbet:
             return 10
         print(f'YOUR BANKROLL IS : ${self.bankroll}')
-        setbet = int(input(f'SET A BET BETWEEN {self.minbet}----{self.maxbet}: '))
+        setbet = int(input(f'SET A BET BETWEEN ${self.minbet}----${self.maxbet}: '))
 
         dealer_state = self.dealer.deal_cards()
         player_state = self.player.deal_cards()
@@ -50,9 +50,17 @@ class game:
             choice = ''
             while choice != 'stand' and player_state != 1:
                 is_bust = 0
-                choice = input('hit or stand?: ')
+                if choice == 'double':
+                    break
+                choice = input('hit,stand, or double?: ')
 
                 if choice == 'hit':
+                    is_bust = self.player.hit()
+                    self.player.show_cards()
+                if choice == 'double':
+                    self.bankroll -= setbet
+                    setbet *= 2
+                    print(f'YOUR BET HAS NOW BEEN DOUBLED TO ${setbet}')
                     is_bust = self.player.hit()
                     self.player.show_cards()
                 if is_bust == 1:
