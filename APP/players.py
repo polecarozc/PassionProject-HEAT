@@ -57,6 +57,9 @@ class player:
             for i in self.cards:
                 i.show()
                 if len(self.cards)>1:
+                    if self.decks.check_ace(i) == 1:
+                        return 1
                     break
+
 
 

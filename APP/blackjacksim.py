@@ -20,11 +20,17 @@ class game:
             return 10
         print(f'YOUR BANKROLL IS : ${self.bankroll}')
         setbet = int(input(f'SET A BET BETWEEN ${self.minbet}----${self.maxbet}: '))
+        insurancebet = 0
 
         dealer_state = self.dealer.deal_cards()
         player_state = self.player.deal_cards()
 
-        self.dealer.dealers_cards()
+        if self.dealer.dealers_cards()==1:
+            if input('DEALER HAS AN ACE, DO YOU WANT INSURANCE?: ') == 'yes':
+                print(f'INSURANCE PURCHASED FOR {setbet/2}')
+                self.bankroll -= setbet/2
+                insurancebet = setbet/2
+
         self.player.show_cards()
 
         if player_state == 1:
@@ -45,14 +51,17 @@ class game:
             self.player.cards.clear()
             self.dealer.cards.clear()
             self.bankroll -= setbet
-            return self.bankroll
+            return self.bankroll + insurancebet * 2
         else:
             choice = ''
             while choice != 'stand' and player_state != 1:
                 is_bust = 0
                 if choice == 'double':
                     break
-                choice = input('hit,stand, or double?: ')
+                while len(self.player.cards) <= 3 and choice == 'double':
+                    choice = input('hit or stand')
+                if len(self.player.cards) <= 2 and choice != 'double':
+                    choice = input('hit,stand, or double?: ')
 
                 if choice == 'hit':
                     is_bust = self.player.hit()
@@ -83,7 +92,7 @@ class game:
                 print('player wins, gg\n--------')
                 self.player.cards.clear()
                 self.dealer.cards.clear()
-                self.bankroll += setbet
+                self.bankroll += setbet * 2
                 return self.bankroll
             elif self.player.score_count() < self.dealer.score_count() and self.dealer.score_count() >= 17:
                 print('dealer wins, gg\n--------')
@@ -97,7 +106,7 @@ class game:
                     print('dealer busted, gg\n--------')
                     self.player.cards.clear()
                     self.dealer.cards.clear()
-                    self.bankroll += setbet
+                    self.bankroll += setbet * 2
                     return self.bankroll
                 self.dealer.show_cards()
             if self.dealer.score_count() == self.player.score_count() and self.dealer.score_count() >= 17:
@@ -107,7 +116,7 @@ class game:
                 self.bankroll -= setbet
             elif self.dealer.score_count() < self.player.score_count() and self.dealer.score_count() >= 17:
                 print('u win, gg\n--------')
-                self.bankroll += setbet
+                self.bankroll += setbet * 2
             self.player.cards.clear()
             self.dealer.cards.clear()
             return self.bankroll

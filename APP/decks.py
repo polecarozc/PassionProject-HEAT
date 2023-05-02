@@ -24,6 +24,11 @@ class deck:
         #print('number of cards ' + str(len(self.cards)))
         #print('the count is now ' + str(self.count))
         return hand
+    def check_ace(self, card):
+        if card.amount in [1,11]:
+            return 1
+        else:
+            return 2
 
     def update_count(self, card):
         if card.amount in [2,3,4,5,6]:

@@ -1,0 +1,13 @@
+add insurance'DONE'
+add doubles'DONE'
+add splits
+add perfect basic strategy
+
+BREAK UP FILE
+
+add jackpots
+add ratios
+
+BACKEND
+
+FRONT END
