@@ -27,6 +27,10 @@ class player:
             aces -= 1
             self.score -= 10
         return self.score
+    def show_split(self):
+        for i in self.cards:
+            i.show_card()
+            return
 
 
     def deal_cards(self):
@@ -35,7 +39,9 @@ class player:
         if self.score == 21:
             return 1
         return 0
-
+    def check_split(self):
+        if self.cards[0].amount == self.cards[1].amount:
+            return 1
     def dealer_gate(self):
         return 1
 
@@ -50,6 +56,10 @@ class player:
         for i in self.cards:
             i.show()
         print('hand value: ' + str(self.score))
+
+    def check_ace(self):
+        if self.cards[0].amount in [1,11,'A']:
+            return 1
 
     def dealers_cards(self):
         print('Dealers cards')

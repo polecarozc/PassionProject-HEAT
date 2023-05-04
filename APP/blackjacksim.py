@@ -25,13 +25,20 @@ class game:
         dealer_state = self.dealer.deal_cards()
         player_state = self.player.deal_cards()
 
-        if self.dealer.dealers_cards()==1:
+        if self.dealer.check_ace()==1:
             if input('DEALER HAS AN ACE, DO YOU WANT INSURANCE?: ') == 'yes':
                 print(f'INSURANCE PURCHASED FOR {setbet/2}')
                 self.bankroll -= setbet/2
                 insurancebet = setbet/2
 
+        self.dealer.dealers_cards()
         self.player.show_cards()
+
+        if self.player.check_split()==1:
+            if input(f'YOU HAVE 2 {self.player.cards[0].amount}s, DO YOU WANT TO SPLIT: ') == 'yes':
+                'TEST PASSED, GAME ACKKNOLEDGED SPLIT'
+
+
 
         if player_state == 1:
             print('YOU GOT BLACKJACK')
@@ -56,11 +63,12 @@ class game:
             choice = ''
             while choice != 'stand' and player_state != 1:
                 is_bust = 0
-                if choice == 'double':
+                if choice == 'double' or is_bust == 2 or choice == 'stand':
                     break
-                while len(self.player.cards) <= 3 and choice == 'double':
-                    choice = input('hit or stand')
-                if len(self.player.cards) <= 2 and choice != 'double':
+
+                if len(self.player.cards) >= 3:
+                    choice = input('hit or stand?: ')
+                elif len(self.player.cards) <= 2 and choice != 'double' or choice != 'stand':
                     choice = input('hit,stand, or double?: ')
 
                 if choice == 'hit':
@@ -80,6 +88,7 @@ class game:
                     return self.bankroll
                 if is_bust == 2:
                     print('you have 21!,\n--------')
+                    break
             self.dealer.show_cards()
             if dealer_state == 1:
                 print('dealer got blackjack, gg\n--------')
