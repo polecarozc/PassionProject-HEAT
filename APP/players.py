@@ -57,9 +57,12 @@ class player:
             i.show()
         print('hand value: ' + str(self.score))
 
+
     def check_ace(self):
         if self.cards[0].amount in [1,11,'A']:
             return 1
+        else:
+            return 2
 
     def dealers_cards(self):
         print('Dealers cards')

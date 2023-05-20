@@ -35,7 +35,7 @@ class deck:
             self.count += 1
         elif card.amount in [1, 10, 11, 12, 13]:
             self.count += -1
-        print('COUNT IS ' + str(self.count))
+        #print('COUNT IS ' + str(self.count))
     
     def deck_count(self):
         return len(self.cards)
