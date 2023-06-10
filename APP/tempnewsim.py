@@ -11,11 +11,11 @@ class tempnewsim:
 
         self.game_logic.check_ace()
 
-        if self.game_logic.check_blackjack(player_state,dealer_state) != 4:
-            print('nobody got blackjack, moving onto next move')
+        self.game_logic.check_split()
 
-        print('onto next move, everything worked')
-        print(self.game_logic.decks.count)
+        if self.game_logic.check_blackjack(player_state,dealer_state) != 4:
+            print('nobody got blackjack')
+
         self.game_logic.player.cards.clear()
         self.game_logic.dealer.cards.clear()
         # outcome = self.game_logic.next_move()

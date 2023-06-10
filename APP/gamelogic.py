@@ -1,9 +1,11 @@
 from players import player
 from decks import deck
+from perfect_basic_strategy import pbs
 class game_logic:
     def __init__(self,bankroll, shoe_size, minbet, maxbet, shuffler):
         self.decks = deck()
         self.decks.create_deck()
+        self.pbs = pbs()
         self.player = player(False, self.decks)
         self.dealer = player(True, self.decks)
         self.bankroll = bankroll
@@ -15,7 +17,18 @@ class game_logic:
 
     def check_split(self):
         if self.player.cards[0].amount == self.player.cards[1].amount:
-            return 1
+            self.qualify_split()
+        else:
+            print('cards are not the same, player cards are {0} & {1}'.format(self.player.cards[0].amount,self.player.cards[1].amount))
+        
+    def qualify_split(self):
+        if pbs.perfect_split(self.player.cards[0].amount, self.dealer.cards[0].amount)==1:
+            print('--------CARDS WILL BE SPLIT, players cards are {} & {}, dealers card is {}'.format(self.player.cards[0].amount,self.player.cards[1].amount, self.dealer.cards[0].amount))
+        else:
+            print('--------cards will not be split, players cards are {} & {}, dealers card is {}'.format(self.player.cards[0].amount,self.player.cards[1].amount, self.dealer.cards[0].amount))
+        
+
+
     def check_ace(self):
         if self.dealer.cards[0].amount in [1,11,'A']:
             self.insurance_purchase()
