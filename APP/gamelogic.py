@@ -1,8 +1,10 @@
 from players import player
 from decks import deck
 import perfect_basic_strategy as pbs
+
+
 class game_logic:
-    def __init__(self,bankroll, shoe_size, minbet, maxbet, shuffler):
+    def __init__(self, bankroll, shoe_size, minbet, maxbet, shuffler):
         self.decks = deck()
         self.decks.create_deck()
         self.player = player(False, self.decks)
@@ -14,11 +16,11 @@ class game_logic:
         self.shuffler = shuffler
         self.bet = 0
         self.playable_hands = []
-        
+
     def total_split_score(self, hands):
         total = 0
-        for list in self.playable_hands[hands]:
-            for card in list:
+        for hand in self.playable_hands[hands]:
+            for card in hand:
                 total += card.total()
         return total
 
@@ -26,50 +28,48 @@ class game_logic:
         if self.player.cards[0].amount == self.player.cards[1].amount:
             self.qualify_split()
         else:
-            print('cards are not the same, player cards are {0} & {1}'.format(self.player.cards[0].value,self.player.cards[1].value))
+            print('cards are not the same, player cards are {0} & {1}'.format(self.player.cards[0].value,
+                                                                              self.player.cards[1].value))
 
     def qualify_split(self):
         if pbs.perfect_split(self.player.cards[0].amount, self.dealer.cards[0].amount) == 1:
-            print('--------CARDS WILL BE SPLIT, players cards are {} & {}, dealers card is {}'.format(self.player.cards[0].value,self.player.cards[1].value, self.dealer.cards[0].value))
-            self.playable_hands.append(self.player.cards[0])
-            self.playable_hands.append(self.player.cards[1])
+            print('--------CARDS WILL BE SPLIT, players cards are {} & {}, dealers card is {}'.format(
+                self.player.cards[0].value, self.player.cards[1].value, self.dealer.cards[0].value))
+            self.playable_hands.append([self.player.cards[0]])
+            self.playable_hands.append([self.player.cards[1]])
 
-            print('----TEST, score for first split hand is {}'.format(self.playable_hands[0].total()))
+            # FINISH THIS LOOP THAT PRINTS A CALL OF A FUCNTION ON AN OBJECT IN A LIST WITHIN A LIST
+            print('----TEST, score for first split hand is {}'.format([]))
 
-
-            for i in range(2):
-                total = 0
-                for list in self.playable_hands[i]:
-                    for card in list:
-                        total += card.total()
-
-                while pbs.hard_total(total) !=1:
+            for i in range(len(self.playable_hands)):
+                while pbs.hard_total(self.total_split_score(i), self.dealer.cards.total()) == 2:
                     self.player.cards.clear()
                     self.player.hit()
-                    self.playable_hands.append(self.player.cards[i])
-
-
-
-
-
-            print("players new hands are {} & {}".format(self.playable_hands[0].value, self.playable_hands[1].value))
+                    self.playable_hands.append(self.player.cards[0])
+                if pbs.hard_total(self.total_split_score(i), self.dealer.cards.total()) == 1:
+                    print('---- player has chosen to stand, players hand was {}, dealers card is {}'.format(
+                        [j for j in self.playable_hands[i].total()], self.dealer.cards[0].value))
+                elif pbs.hard_total(self.total_split_score(i), self.dealer.cards.total()) == 3:
+                    print('---- player has chosen to double, players hand was {}, dealers card was {}'.format(
+                        [j for j in self.playable_hands[i].total()], self.dealer.cards[0].value()))
+            print("players new hands are {}".format(
+                [[i for i in hand] for hand in self.playable_hands]))
 
         else:
-            print('--------cards will not be split, players cards are {} & {}, dealers card is {}'.format(self.player.cards[0].value,self.player.cards[1].value, self.dealer.cards[0].value))
-
-
+            print('--------cards will not be split, players cards are {} & {}, dealers card is {}'.format(
+                self.player.cards[0].value, self.player.cards[1].value, self.dealer.cards[0].value))
 
     def check_ace(self):
-        if self.dealer.cards[0].amount in [1,11,'A']:
+        if self.dealer.cards[0].amount in [1, 11, 'A']:
             self.insurance_purchase()
         else:
             return 2
 
     def insurance_purchase(self):
-        if self.decks.count/self.shoe_size >=3:
+        if self.decks.count / self.shoe_size >= 3:
             print(f'INSURANCE PURCHASED FOR {self.bet / 2}')
             self.bankroll -= self.bet / 2
-            self.bet = self.bet/2
+            self.bet = self.bet / 2
             return 1
         else:
             return 2
@@ -95,6 +95,7 @@ class game_logic:
             return 3
         else:
             return 4
+
     def next_move(self):
         choice = ''
         while choice != 'stand' and self.player_state != 1:
